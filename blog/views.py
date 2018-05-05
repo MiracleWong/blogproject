@@ -1,3 +1,4 @@
+import markdown
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 
@@ -14,4 +15,9 @@ def detail(request, pk):
     # print(request.body)
     # return HttpResponse("欢迎访问我的博客首页！")
     post = get_object_or_404(Post, pk=pk)
+    post.body = markdown.markdown(post.body, extensions=[
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+    ])
     return render(request, 'blog/detail.html', context={'post': post})
