@@ -32,6 +32,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(User)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -39,6 +40,10 @@ class Post(models.Model):
     # # 自定义的get_absolute_url 的方法
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk': self.pk})
+
+    def increase_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
 
     class Meta:
         ordering = ['-created_time']

@@ -15,6 +15,9 @@ def detail(request, pk):
     # print(request.body)
     # return HttpResponse("欢迎访问我的博客首页！")
     post = get_object_or_404(Post, pk=pk)
+
+    # 阅读量+1
+    post.increase_views()
     post.body = markdown.markdown(post.body, extensions=[
         'markdown.extensions.extra',
         'markdown.extensions.codehilite',
