@@ -102,3 +102,4 @@ ENV/
 .idea/
 */*.py[cod]
 *.sqlite3
+fabfile.py
